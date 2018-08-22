@@ -47,7 +47,7 @@ class Board :
             for j in i :    
                 sBoard += j
             sBoard +="\n"
-            
+
         sBoard += "Press 'q' to exit \n"
         
         return sBoard
@@ -135,5 +135,27 @@ class Board :
                     self.matrix[i+x][j+y-framePointer] = tempMatrix[i][j]
 
 
-    
+
+class Boss_Board(Board) :
+    """ Defining board for boss area """
+
+    def __init__(self, length, width, lives, ground_brick) :
+        Board.__init__(self, length, width, lives, ground_brick)
+
+        gbmatrix = ground_brick.return_matrix() 
+        glength = ground_brick.return_length()
+        gwidth =ground_brick.return_width()
+
+        for x in range(26,34,3) :
+            for y in range(0,80,4) :
+                for i in range(0,gwidth) :
+                    for j in range(0,glength) :
+                        self.matrix[x+j][y+i] = gbmatrix[j][i]    
+
+
+        for x in range(0,12,3) :
+            for y in range(0,80,4) :
+                for i in range(0,gwidth) :
+                    for j in range(0,glength) :
+                        self.matrix[x+j][y+i] = gbmatrix[j][i]   
     

@@ -1,7 +1,7 @@
 """ Main game loop program """
 
 import os, sys, time
-from board import Board
+from board import Board, Boss_Board
 from bricks import Brick, Ground_Brick, Special_Brick
 from characters import *
 from input import *
@@ -32,18 +32,34 @@ hill_y = 1
 sun = Sun(sun_x,sun_y)
 hills = Hills(hill_x,hill_y)
 
-gBrick = Ground_Brick(brick_length,brick_width)
-gBrick.setPos(26, 20)
+gBrick = Ground_Brick(26,20)
+# gBrick.setPos(26, 20)
+
+aBrick = Air_Brick(10,10)
 
 bigMap = Board(board_length,board_width,start_lives, gBrick)
+
 # 3 frames big rn 
-
+frameCount = 0
 for i in Map :
+    frameCount = frameCount + 1
 
+tempCount = 1 
+for i in Map:
+    if tempCount == frameCount - 2:
+        break
+    tempCount = tempCount + 1
     tempFrame = Board(board_length,board_width,start_lives, gBrick)
     for j in i :
         tempFrame.UpdatePartOfMatrix(j)
 
+    bigMap.ExtendMap(tempFrame)
+
+
+tempFrame = Boss_Board(board_length,board_width,start_lives, gBrick)
+for i in range(frameCount-3, frameCount) :
+    for j in Map[i] :
+        tempFrame.UpdatePartOfMatrix(j)
     bigMap.ExtendMap(tempFrame)
 
 screenBoard = Board(board_length,board_width,start_lives, gBrick)
@@ -90,6 +106,14 @@ while GameRuns!=False:
         """ Move screen, and not mario """
         framePointer = screenBoard.UpdateFrame(mario, bigMap)
 
+    # if moveType == 3 :
+    #     """ Special block hit, replace block """
+    #     block_x = mario.return_xpos()-2
+    #     block_y = mario.return_distance()-3
+    #     aBrick.setPos(block_x,block_y)
+    #     bigMap.UpdatePartOfMatrix(aBrick)
+    #     screenBoard.UpdatePartOfMatrix(aBrick)
+
     """ Mario movement ends """
 
     #insert enemy updating in frame function 
@@ -112,10 +136,11 @@ while GameRuns!=False:
         sys.exit()
 
     screenBoard.UpdatePartOfMatrixForBakcgroundElements(sun)
-    screenBoard.UpdatePartOfMatrixForBakcgroundElements(hills)
+    if framePointer <= 700 : 
+        screenBoard.UpdatePartOfMatrixForBakcgroundElements(hills)
     screenBoard.UpdatePartOfMatrix(mario)
     screenBoard.UpdateMatrix(screenBoard)
-    print(screenBoard.ReturnStringBoard()+'\n'+"Distance covered :"+str(mario.return_distance()) + '\n' + "Score :" + str(mario.ret_score()+mario.return_distance()) )
+    print(screenBoard.ReturnStringBoard()+'\n'+"Distance covered :"+str(mario.return_distance()) + '\n' + "Score :" + str(mario.ret_score()+mario.return_distance()))
     if mario.return_distance() >= 960 :
         print("Game over, you win!")
         break 

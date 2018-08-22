@@ -23,9 +23,11 @@ def CollisionBricks(new_xpos, new_ypos, clength, cwidth, board_object) :
 
     for i in range(x,x + length) :
         for j in range( y, y+width) :
-            if board_matrix[i][j%80] != ' ' and board_matrix[i][j%80] != '_' and board_matrix[i][j%80] != '/' and board_matrix[i][j%80] !='\\' and board_matrix[i][j%80] != 'w' and board_matrix[i][j%80] != '=':
-                return 1
             if board_matrix[i][j%80] == '=':
                 return 2
+            if board_matrix[i][(j+1)%80] == '?':
+                return 3
+            if board_matrix[i][j%80] != ' ' and board_matrix[i][j%80] != '_' and board_matrix[i][j%80] != '/' and board_matrix[i][j%80] !='\\' and board_matrix[i][j%80] != 'w':
+                return 1
 
     return 0 

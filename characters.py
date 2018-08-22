@@ -108,7 +108,7 @@ class Mario(Character):
         """ Read input character and move the character if possible """
 
         self.gravity(timer,board_object)
-        
+ 
         if ch == 'a' and CollisionBricks(self.x, self.y - 1, self.length,self.width, board_object ) == 0:
             self.move_left() 
             return 1
@@ -121,6 +121,9 @@ class Mario(Character):
         if ch == 'w' and CollisionBricks(self.x - 1, self.y, self.length,self.width, board_object ) == 0:    
            self.jump_up(timer)
            return 1 
+        # if ch is 'w' and CollisionBricks(self.x-1, self.y, self.length,self.width, board_object ) == 3:
+        #    self.Increment_score(30)
+        #    return 3
 
         if ch == 'd' and CollisionBricks(self.x, self.y + 1, self.length,self.width, board_object ) == 0 :
             return self.move_right()

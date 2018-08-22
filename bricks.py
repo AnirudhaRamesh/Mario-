@@ -174,4 +174,23 @@ class Waterfall_Bricks(Brick) :
         self.length = 29
         self.width = 30
         self.matrix = [['w' for i in range(self.width)] for j in range(self.length)]
-        
+
+class Beware(Brick) :
+    """ Beware signboard """
+
+    def __init__(self, x, y) :
+
+        Brick.__init__(self,x,y)
+        self.matrix = [['-','-','-','-','-','-','-','-','-','-','-'],['|',' ','B','E','W','A','R','E','!',' ','|'],['|',' ','L','U','I','G','I','\'','S',' ','|'],['|',' ',' ','L','A','I','R',' ',' ',' ','|'],['-','-','-','-','-','-','-','-','-','-','-'],[' ',' ',' ',' ','|','|','|',' ',' ',' ',' ']]
+        self.length = 6
+        self.width = 11
+
+class PrincessHere(Brick) :
+    """ Princess signboard """
+
+    def __init__(self, x, y) :
+
+        Brick.__init__(self,x,y)
+        self.matrix = [['-','-','-','-','-','-','-','-','-','-','-'],['|','P','R','I','N','C','E','S','S',' ','|'],['|',' ',' ',' ','H','E','R','E','!',' ','|'],['|',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'],['-','-','-','-','-','-','-','-','-','-','-'],[' ',' ',' ',' ','|','|','|',' ',' ',' ',' ']]
+        self.length = 6
+        self.width = 11

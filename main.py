@@ -116,6 +116,9 @@ while GameRuns!=False:
     screenBoard.UpdatePartOfMatrix(mario)
     screenBoard.UpdateMatrix(screenBoard)
     print(screenBoard.ReturnStringBoard()+'\n'+"Distance covered :"+str(mario.return_distance()) + '\n' + "Score :" + str(mario.ret_score()+mario.return_distance()) )
+    if mario.return_distance() >= 960 :
+        print("Game over, you win!")
+        break 
     time.sleep(0.025)
     
 

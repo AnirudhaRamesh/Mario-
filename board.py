@@ -47,8 +47,7 @@ class Board :
             for j in i :    
                 sBoard += j
             sBoard +="\n"
-        
-        sBoard += "Score : " + str(self.score) +"   Lives : " + str(self.lives) + "\n"
+            
         sBoard += "Press 'q' to exit \n"
         
         return sBoard

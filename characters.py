@@ -44,7 +44,7 @@ class Character:
     
     def destroy(self):
         """ checks if lives are over, if so replaces with empty block of same dimensions """
-        if self.lives >= 1 :
+        if self.lives <= 1 :
             self.lives = 0 
             newMat = []
             length = self.length
@@ -130,7 +130,11 @@ class Mario(Character):
                 print("Game overr, your score is "+ str(self.ret_score()+self.return_distance()))
                 exit()
 
-
+        if CollisionBricks(self.x,self.y,self.length,self.width, board_object) == 2 :
+            self.destroy()
+            if self.lives == 0 :
+                print("Game overr, your score is "+ str(self.ret_score()+self.return_distance()))
+                exit()
 
 class Mushroom(Character) :
     """ Definition of Mushroom """
@@ -179,18 +183,34 @@ class Boss(Character) :
 
     def __init__(self, x, y) :
         Character.__init__(self, x, y) 
-        self.matrix = [[' ','L','L',' '],[' ','L','L',' '],['L','L','L','L'],['L','L','L','L'],[' ','L','L',' '],[' ','L','L',' ']]
+        self.matrix = [[' ','=','=','=',' '],[' ','L','L','L',' '],['=','=','=','=','='],['=','=','L','=','='],[' ','L',' ','L',' '],[' ','L',' ','L',' ']]
         self.length = 6
-        self.width = 4
+        self.width = 5
         self.initial_y = y
+        self.velocity = 0
+        self.lives = 1
 
 
     def move(self, board_object, mario) :
+
+        if self.velocity < 1 and mario.return_distance() % 80 > self.y%80 :
+            self.velocity = self.velocity + 1
+        
+        if self.velocity > -3 and mario.return_distance() % 80 <self.y% 80 :
+            self.velocity = self.velocity - 1 
+
+        # if self.y%80 == mario.return_distance() % 80:
+        #     if self.velocity > 0 :
+        #         self.y = self.y + 10 
+        #     else :
+        #         self.y = self.y - 10
+
+
         if mario.return_distance() % 80 > self.y%80 :
-            self.y = self.y + 2
+            self.y = self.y + self.velocity
         
         if mario.return_distance() % 80 < self.y%80 : 
-            self.y = self.y - 2 
+            self.y = self.y + self.velocity
 
         if mario.return_distance()%80 >= self.y % 80-self.width and mario.return_distance()%80 <= (self.y)%80 + self.width and mario.return_xpos() + mario.return_length() == self.x :
             mario.Increment_score(150)

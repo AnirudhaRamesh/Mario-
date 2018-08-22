@@ -120,20 +120,24 @@ frame = []
 frame.append(Air_Brick(9*3 + 1, 4*4))
 frame.append(Air_Brick(9*3 + 1, 4*5))
 frame.append(Waterfall_Bricks(0,4*8))
-#frame.append(poleFlag(10,15))
+frame.append(Beware(2*11 + 1, 4*17))
+Map.append(frame)
+
+frame = []
+
+Map.append(frame)
+
+frame = []
+frame.append(PrincessHere(2*11 + 1, 4*17))
 Map.append(frame)
 
 frame = []
 Map.append(frame)
-
-frame = []
-Map.append(frame)
-
 """ make a list of enemies, with positions on the main map. If a enemy is in current frame, then pull him out of the list, and activate him. If he dies, remove him. If he leaves map, remove him.
 Place him in ways such that he doesnt fall into holes lmao"""
 
 enemies = []
-enemies.append(Boss(2*11 + 1, 4*19 ))
+# enemies.append(Boss(2*11 + 1, 4*19 ))
 enemies.append(Mushroom(2*13, 80 + 4* 6, 10))
 enemies.append(Mushroom(2*13, 80 + 4* 10, 3))
 enemies.append(Mushroom(2*13, 160 + 4* 6, 3))
@@ -142,4 +146,4 @@ enemies.append(Mushroom(2*13, 240 + 4* 8, 3))
 enemies.append(Mushroom(2*13, 400 + 4* 6, 3))
 enemies.append(Mushroom(2*13, 400 + 4* 10, 3))
 enemies.append(Mushroom(2*13, 480 + 4* 8, 5))
-# enemies.append(Boss(2*11, 800 + 4*2 ))
+enemies.append(Boss(2*11 + 1, 880 + 4*14 ))

@@ -178,6 +178,7 @@ enemies.append(Boss(2*10, 880 + 4*14 ))
 """ Section 2 """
 
 """ Section 3 """
+
 coins = []
 
 coins.append(Coin(2*10,4*8+81))
@@ -187,5 +188,9 @@ coins.append(Coin(2*10,401 + 4*4))
 coins.append(Coin(2*10,401 + 4*8))
 coins.append(Coin(2*10,401 + 4*12))
 coins.append(Coin(2*6,401 + 4*8))
+coins.append(Coin(2*10,481+ 4*5))
+coins.append(Coin(2*10,641 + 4*3))
+coins.append(Coin(2*10,641 + 4*6))
+
 
 """ End of section 3 """

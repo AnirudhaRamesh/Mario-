@@ -11,9 +11,6 @@ class Brick :
         self.x = x 
         self.y = y
         self.matrix = None 
-        self.breakable = True 
-        self.destroyed = False 
-        self.special = False
         self.length = None
         self.width = None
     def return_matrix(self) :
@@ -51,7 +48,6 @@ class Ground_Brick(Brick):
         for i in range(self.length):
             for j in range(self.width):
                 self.matrix[i][j] = Fore.GREEN + self.matrix[i][j] + Fore.RESET
-        self.breakable = False
 
 
 class Special_Brick(Brick) :
@@ -66,13 +62,12 @@ class Special_Brick(Brick) :
         for i in range(self.length):
             for j in range(self.width):
                 self.matrix[i][j] = Fore.RED + self.matrix[i][j] + Fore.RESET
-        self.breakable = False
-        self.special = True
 
-    def hit(self) :
-        """ Changing brick once hit """
-        self.matrix = [["|","x","x","|"],["|","x","x","|"]]
-        self.special = False
+
+    # def hit(self) :
+    #     """ Changing brick once hit """
+    #     self.matrix = [["|","x","x","|"],["|","x","x","|"]]
+
 
 class EmptyGround_Brick(Brick) :
     """ Empty brick for ground """
@@ -83,9 +78,6 @@ class EmptyGround_Brick(Brick) :
         self.length = 3
         self.width = 4
         self.matrix = [[' ',' ',' ',' '],[' ',' ',' ',' '],[' ',' ',' ',' ']]
-        self.breakable = False
-        self.special = False
-
 
 class Air_Brick(Brick) :
     """ Floating brick """
@@ -95,8 +87,6 @@ class Air_Brick(Brick) :
         self.matrix = [['|','x','x','|'],['|','x','x','|']]
         self.length = 2
         self.width = 4
-        self.breakable = False
-        self.special = False
         for i in range(self.length):
             for j in range(self.width):
                 self.matrix[i][j] = Fore.RED + self.matrix[i][j] + Fore.RESET
@@ -127,8 +117,6 @@ class Pipe(Brick) :
             self.matrix.append([' ',' ','|','|',':',':',':',':',':',':','|','|',' ',' '])
         self.length = a+1
         self.width = 14
-        self.breakable = False
-        self.special = False
         for i in range(self.length):
             for j in range(self.width):
                 self.matrix[i][j] = Fore.GREEN + self.matrix[i][j] + Fore.RESET
@@ -151,8 +139,6 @@ class Sun(Brick) :
                         [' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' '],]
         self.width = 13
         self.length = 9
-        self.breakable = False
-        self.special = False
         for i in range(self.length):
             for j in range(self.width):
                 self.matrix[i][j] = Fore.YELLOW + self.matrix[i][j] + Fore.RESET

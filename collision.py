@@ -1,21 +1,8 @@
 """ Controllers for collision detectors """
 from colorama import Fore
 
-# def CollisionFloor(character_object  , board_object ) :
-#     x = character_object.return_xpos()
-#     y = character_object.return_ypos()
-#     board_matrix = board_object.return_matrix()
-#     x_length = character_object.return_length()
-#     y_width = character_object.return_width()
-
-#     for i in range(0,4) :
-#         if board_object[x + x_length][y + i] in ['T', '|'] :
-#             return 1
-#         else :
-#             return 0
-
-
 def CollisionBricks(new_xpos, new_ypos, clength, cwidth, board_object) :
+    """ Function that checks and controls collisions """
     x = new_xpos
     y = new_ypos
     board_matrix = board_object.ReturnMatrixBoard()

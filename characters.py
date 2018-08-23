@@ -37,15 +37,6 @@ class Character:
     def return_ypos(self):
         return self.y
         
-    def gravity(self, timer,board_object):
-        """ continuous decrese in height whenever possible """
-        if self.x >= 32 :
-            self.destroy()
-            if self.lives == 0 :
-                print("Game overr, your score is "+ str(self.ret_score()+self.return_distance()))
-                exit()
-        if CollisionBricks(self.x + 1, self.y, self.length,self.width, board_object ) == 0 and timer == 10 :
-            self.x = self.x + 1
     
     def destroy(self):
         """ checks if lives are over, if so replaces with empty block of same dimensions """
@@ -98,9 +89,10 @@ class Mario(Character):
             return 2
 
     def jump_up (self, timer):
+        """ Controls jump """
         if timer >= 0 and self.x > 0 :
             self.x = self.x - 1
-        # if timer < 0 :
+
     def ret_score(self) :
         """ Returns overall score """
         return self.score 
@@ -126,9 +118,6 @@ class Mario(Character):
         if ch == 'w' and CollisionBricks(self.x - 1, self.y, self.length,self.width, board_object ) == 0:    
            self.jump_up(timer)
            return 1 
-        # if ch is 'w' and CollisionBricks(self.x-1, self.y, self.length,self.width, board_object ) == 3:
-        #    self.Increment_score(30)
-        #    return 3
 
         if ch == 'd' and CollisionBricks(self.x, self.y + 1, self.length,self.width, board_object ) == 0 :
             return self.move_right()
@@ -143,6 +132,16 @@ class Mario(Character):
             if self.lives == 0 :
                 print("Game overr, your score is "+ str(self.ret_score()+self.return_distance()))
                 exit()
+
+    def gravity(self, timer,board_object):
+        """ continuous decrese in height whenever possible """
+        if self.x >= 32 :
+            self.destroy()
+            if self.lives == 0 :
+                print("Game overr, your score is "+ str(self.ret_score()+self.return_distance()))
+                exit()
+        if CollisionBricks(self.x + 1, self.y, self.length,self.width, board_object ) == 0 and timer == 10 :
+            self.x = self.x + 1
 
 class Mushroom(Character) :
     """ Definition of Mushroom """
@@ -159,6 +158,7 @@ class Mushroom(Character) :
         self.moveleft = True 
         self.leash = leash
         self.points_For_Killing = 50
+        self.speed = 1
 
     def returnLives(self) :
         """ Returning number of lives left """
@@ -174,17 +174,14 @@ class Mushroom(Character) :
             self.destroy()
 
         if self.moveleft == True and self.y >= self.initial_y - self.leash :
-            self.y = self.y - 1
+            self.y = self.y - self.speed
         else :
             self.moveleft = False 
 
         if self.moveleft == False and self.y < self.initial_y + self.leash  :
-            self.y = self.y + 1
+            self.y = self.y + self.speed
         else :
             self.moveleft = True 
-
-        # collision with mario block on it's head :
-        # mushroom.destroy()
     
 class Boss(Character) : 
     """ Definition of Boss enemy """  
@@ -205,14 +202,7 @@ class Boss(Character) :
             self.velocity = self.velocity + 1
         
         if self.velocity > -3 and mario.return_distance() % 80 <self.y% 80 :
-            self.velocity = self.velocity - 1 
-
-        # if self.y%80 == mario.return_distance() % 80:
-        #     if self.velocity > 0 :
-        #         self.y = self.y + 10 
-        #     else :
-        #         self.y = self.y - 10
-
+            self.velocity = self.velocity - 1
 
         if mario.return_distance() % 80 > self.y%80 :
             self.y = self.y + self.velocity

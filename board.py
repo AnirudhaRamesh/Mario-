@@ -3,10 +3,6 @@
 from bricks import *
 from config import *
 
-# class Map :
-#     """ Defining Entire Map """
-#     def __init__(sel)
-
 class Board :
     """ Defining Board """
 
@@ -29,11 +25,6 @@ class Board :
                         self.matrix[x+j][y+i] = gbmatrix[j][i]
         
         cloud_matrix = return_cloudstuff()
-
-        # for x in range (4,11) :
-        #     for i in cloud_matrix :
-        #         for y in range(0,80) :
-        #                 self.matrix[x][y] = i[y]  
 
         for x in range(7) :
             for y in range(80) :
@@ -84,7 +75,6 @@ class Board :
         """ Cleaning part of board matrix """
         x = obj.return_xpos()
         y = obj.return_ypos() % 80
-        #matrix = obj.return_matrix()
 
         for i in range(x, x + obj.length):
             for j in range(y, y + obj.width):

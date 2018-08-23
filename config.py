@@ -20,6 +20,8 @@ sun_y = 5
 hill_x = 13
 hill_y = 1
 
+Mushroom_speed = 2
+
 
 def return_cloudstuff() :
     """ returns scenery for cloud """    
@@ -39,13 +41,11 @@ def return_cloudstuff() :
         for j in range(len(cloud_list[0])):
             clouds_matrix[i].append(cloud_list[i][j])
 
-    # for i in range(len(cloud_list)):
-    #     for j in range(len(cloud_list[0])):
-    #         clouds_matrix[i][j] = Fore.BLUE + clouds_matrix[i][j] + Fore.RESET
-
     return clouds_matrix
 
-# creating map
+""" Map holds supplementary design of overall game map, and appending frames, and objects inside them, designs the levels """
+""" Bricks, Pipes, signboards are set up in section 1. Enemies in section 2 via a list of objects. Coins in section 3 via a list of objects """
+""" Section 1 """
 Map = []
 
 frame = []
@@ -156,11 +156,15 @@ Map.append(frame)
 
 frame = []
 Map.append(frame)
+""" End of section 1 """
+
+""" Section 2 """
+
 """ make a list of enemies, with positions on the main map. If a enemy is in current frame, then pull him out of the list, and activate him. If he dies, remove him. If he leaves map, remove him.
 Place him in ways such that he doesnt fall into holes lmao"""
 
 enemies = []
-# enemies.append(Boss(2*11 + 1, 4*19 ))
+
 enemies.append(Mushroom(2*13, 80 + 4* 6, 10))
 enemies.append(Mushroom(2*13, 80 + 4* 10, 3))
 enemies.append(Mushroom(2*13, 160 + 4* 6, 3))
@@ -171,6 +175,9 @@ enemies.append(Mushroom(2*13, 400 + 4* 10, 3))
 enemies.append(Mushroom(2*13, 480 + 4* 8, 5))
 enemies.append(Boss(2*10, 880 + 4*14 ))
 
+""" Section 2 """
+
+""" Section 3 """
 coins = []
 
 coins.append(Coin(2*10,4*8+81))
@@ -180,3 +187,5 @@ coins.append(Coin(2*10,401 + 4*4))
 coins.append(Coin(2*10,401 + 4*8))
 coins.append(Coin(2*10,401 + 4*12))
 coins.append(Coin(2*6,401 + 4*8))
+
+""" End of section 3 """

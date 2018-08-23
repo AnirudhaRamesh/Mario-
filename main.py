@@ -75,7 +75,6 @@ while GameRuns!=False:
     
     moveType = mario.move(input, jump_timer, screenBoard)
 
-    #gotta limit jump 
     if jump_timer != 10 or (input == 'w' and jump_timer == 10) :
         os.system('aplay -q jump.wav&')
         jump_timer = jump_timer - 1 
@@ -91,18 +90,8 @@ while GameRuns!=False:
         """ Move screen, and not mario """
         framePointer = screenBoard.UpdateFrame(mario, bigMap)
 
-    # if moveType == 3 :
-    #     """ Special block hit, replace block """
-    #     block_x = mario.return_xpos()-2
-    #     block_y = mario.return_distance()-3
-    #     aBrick.setPos(block_x,block_y)
-    #     bigMap.UpdatePartOfMatrix(aBrick)
-    #     screenBoard.UpdatePartOfMatrix(aBrick)
-
     """ Mario movement ends """
 
-    #insert enemy updating in frame function 
-    #make this into a function
     """ Enemies Updation """
     DistFromStart = mario.return_distance()
     for i in enemies :

@@ -3,6 +3,24 @@
 from bricks import *
 from characters import Mushroom, Boss 
 
+
+board_length = 36
+board_width = 80
+start_lives = 3
+
+brick_length = 3
+brick_width = 4
+
+mario_init_x = 12
+mario_init_y = 0
+
+sun_x = 1
+sun_y = 5
+
+hill_x = 13
+hill_y = 1
+
+
 def return_cloudstuff() :
     """ returns scenery for cloud """    
     clouds_matrix = []
@@ -12,8 +30,8 @@ def return_cloudstuff() :
                   "            _ __                  //////////\             /////////\_           ",
                   "           /////\_             ///////////////\         /////////////\_ _       ",
                   "        //////////\_          /////////////////\       //////////////////\      ",
-                  "        \///////////|         \////////////////         \/////////////////      ",
-                  "         \//////////                                     \///////////////       "]
+                  "        \///////////\         \////////////////         \/////////////////      ",
+                  "         \///////////                                    \///////////////       "]
 
 
     for i in range(len(cloud_list)) :
@@ -21,12 +39,17 @@ def return_cloudstuff() :
         for j in range(len(cloud_list[0])):
             clouds_matrix[i].append(cloud_list[i][j])
 
+    # for i in range(len(cloud_list)):
+    #     for j in range(len(cloud_list[0])):
+    #         clouds_matrix[i][j] = Fore.BLUE + clouds_matrix[i][j] + Fore.RESET
+
     return clouds_matrix
 
 # creating map
 Map = []
 
 frame = []
+
 frame.append(Air_Brick(2*10,4*7))
 frame.append(Air_Brick(2*10,4*9))
 frame.append(Air_Brick(2*6,4*8))
@@ -147,3 +170,13 @@ enemies.append(Mushroom(2*13, 400 + 4* 6, 3))
 enemies.append(Mushroom(2*13, 400 + 4* 10, 3))
 enemies.append(Mushroom(2*13, 480 + 4* 8, 5))
 enemies.append(Boss(2*10, 880 + 4*14 ))
+
+coins = []
+
+coins.append(Coin(2*10,4*8+81))
+coins.append(Coin(2*10,4*7 + 161))
+coins.append(Coin(2*10,4*10 + 161))
+coins.append(Coin(2*10,401 + 4*4))
+coins.append(Coin(2*10,401 + 4*8))
+coins.append(Coin(2*10,401 + 4*12))
+coins.append(Coin(2*6,401 + 4*8))

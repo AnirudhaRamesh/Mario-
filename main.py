@@ -2,44 +2,25 @@
 
 import os, sys, time
 from board import Board, Boss_Board
-from bricks import Brick, Ground_Brick, Special_Brick
+from bricks import Brick, Ground_Brick, Special_Brick, UnderGround_Brick, EmptyCoin
 from characters import *
 from input import *
 from collision import *
 from config import * 
 import random
+from colorama import Fore
 
-""" Config """
-
-board_length = 36
-board_width = 80
-start_lives = 3
-
-brick_length = 3
-brick_width = 4
-
-mario_init_x = 3
-mario_init_y = 0
-
-sun_x = 1
-sun_y = 5
-
-hill_x = 13
-hill_y = 1
-
-""" End of config """
 
 sun = Sun(sun_x,sun_y)
 hills = Hills(hill_x,hill_y)
 
 gBrick = Ground_Brick(26,20)
-# gBrick.setPos(26, 20)
+ugBrick = UnderGround_Brick(26,20)
 
 aBrick = Air_Brick(10,10)
 
 bigMap = Board(board_length,board_width,start_lives, gBrick)
 
-# 3 frames big rn 
 frameCount = 0
 for i in Map :
     frameCount = frameCount + 1
@@ -56,7 +37,7 @@ for i in Map:
     bigMap.ExtendMap(tempFrame)
 
 
-tempFrame = Boss_Board(board_length,board_width,start_lives, gBrick)
+tempFrame = Boss_Board(board_length,board_width,start_lives, ugBrick)
 for i in range(frameCount-3, frameCount) :
     for j in Map[i] :
         tempFrame.UpdatePartOfMatrix(j)
@@ -78,8 +59,11 @@ GameRuns = True
 
 getch = Get()
 
-jump_timer = 10 # number of seconds for jump to last
+jump_timer = 10 # number of frames for jump to last
 
+os.system('aplay -q main_theme.wav&')
+os.system('sleep 2 &aplay -q Its_a_me_mario.wav&')
+os.system('sleep 7 && aplay -q Mamma_mia.wav&')
 
 while GameRuns!=False:
     input = input_to(getch)
@@ -93,6 +77,7 @@ while GameRuns!=False:
 
     #gotta limit jump 
     if jump_timer != 10 or (input == 'w' and jump_timer == 10) :
+        os.system('aplay -q jump.wav&')
         jump_timer = jump_timer - 1 
         mario.move('w',jump_timer, screenBoard)
 
@@ -118,6 +103,7 @@ while GameRuns!=False:
 
     #insert enemy updating in frame function 
     #make this into a function
+    """ Enemies Updation """
     DistFromStart = mario.return_distance()
     for i in enemies :
         empty = EmptyEnemy(i)
@@ -129,7 +115,18 @@ while GameRuns!=False:
             screenBoard.UpdatingEnemiesOnFrame(empty, framePointer)
             i.move(screenBoard, mario)
             screenBoard.UpdatingEnemiesOnFrame(i, framePointer)
-            
+    """ Enemies done """
+
+    """ Coins """
+    for i in coins :
+        empty = EmptyCoin(i)
+        if empty.return_matrix() == i.return_matrix() :
+            coins.remove(i) 
+            continue
+        if i.return_ypos() >= framePointer and i.return_ypos() < framePointer + 80 :
+            screenBoard.UpdatingEnemiesOnFrame(empty, framePointer)
+            i.test(screenBoard, mario)
+            screenBoard.UpdatingEnemiesOnFrame(i, framePointer)
 
     if input == 'q':
         os.system('clear')

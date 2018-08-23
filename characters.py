@@ -39,6 +39,11 @@ class Character:
         
     def gravity(self, timer,board_object):
         """ continuous decrese in height whenever possible """
+        if self.x >= 32 :
+            self.destroy()
+            if self.lives == 0 :
+                print("Game overr, your score is "+ str(self.ret_score()+self.return_distance()))
+                exit()
         if CollisionBricks(self.x + 1, self.y, self.length,self.width, board_object ) == 0 and timer == 10 :
             self.x = self.x + 1
     
@@ -93,7 +98,7 @@ class Mario(Character):
             return 2
 
     def jump_up (self, timer):
-        if timer >= 0 :
+        if timer >= 0 and self.x > 0 :
             self.x = self.x - 1
         # if timer < 0 :
     def ret_score(self) :

@@ -1,4 +1,5 @@
 """ Controllers for collision detectors """
+from colorama import Fore
 
 # def CollisionFloor(character_object  , board_object ) :
 #     x = character_object.return_xpos()
@@ -27,7 +28,7 @@ def CollisionBricks(new_xpos, new_ypos, clength, cwidth, board_object) :
                 return 2
             if board_matrix[i][(j+1)%80] == '?':
                 return 3
-            if board_matrix[i][j%80] != ' ' and board_matrix[i][j%80] != '_' and board_matrix[i][j%80] != '/' and board_matrix[i][j%80] !='\\' and board_matrix[i][j%80] != 'w':
+            if board_matrix[i][j%80] != ' ' and board_matrix[i][j%80] != '_' and  board_matrix[i][j%80] != '/' and board_matrix[i][j%80] != '\\' and board_matrix[i][j%80] != 'w' and board_matrix[i][j%80] != Fore.BLUE + 'w' + Fore.RESET and board_matrix[i][j%80]!='$' and board_matrix[i][j%80] != Fore.YELLOW + '$' + Fore.RESET :
                 return 1
 
     return 0 
